@@ -19,7 +19,7 @@ public class QuerySaleRequest extends AbstractSaleRequest<String> {
 
 	@Override
 	public Sale execute(String paymentId) throws IOException, CieloRequestException {
-		String url = environment.getApiUrl() + "1/sales/" + paymentId;
+		String url = environment.getApiQueryURL() + "1/sales/" + paymentId;
 
 		HttpGet request = new HttpGet(url);
 		HttpResponse response = sendRequest(request);
