@@ -10,25 +10,22 @@ import com.google.gson.GsonBuilder;
 
 import cieloecommerce.sdk.Environment;
 import cieloecommerce.sdk.Merchant;
-import cieloecommerce.sdk.ecommerce.Sale;
+import cieloecommerce.sdk.ecommerce.CardToken;
 
-/**
- * Create any kind of sale
- */
-public class CreateSaleRequest extends AbstractSaleRequest<Sale, Sale> {
-	public CreateSaleRequest(Merchant merchant, Environment environment) {
+public class CreateCartTokenRequest extends AbstractSaleRequest<CardToken, CardToken> {
+	public CreateCartTokenRequest(Merchant merchant, Environment environment) {
 		super(merchant, environment);
 	}
 
 	@Override
-	public Sale execute(Sale param) throws IOException, CieloRequestException {
-		String url = environment.getApiUrl() + "1/sales/";
+	public CardToken execute(CardToken param) throws IOException, CieloRequestException {
+		String url = environment.getApiUrl() + "1/card/";
 		HttpPost request = new HttpPost(url);
 
 		request.setEntity(new StringEntity(new GsonBuilder().create().toJson(param)));
 
 		HttpResponse response = sendRequest(request);
 
-		return readResponse(response, Sale.class);
+		return readResponse(response, CardToken.class);
 	}
 }

@@ -15,20 +15,14 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.Gson;
-
 import cieloecommerce.sdk.Environment;
 import cieloecommerce.sdk.Merchant;
-import cieloecommerce.sdk.ecommerce.Sale;
 
 /**
  * Abstraction to reuse most of the code that send and receive the HTTP
  * messages.
- *
- * @param <T>
- *            the AsyncTask expects 3 params and we can only anticipate 2 of
- *            them.
  */
-public abstract class AbstractSaleRequest<T> {
+public abstract class AbstractSaleRequest<Request, Response> {
 	final Environment environment;
 	private final Merchant merchant;
 	private HttpClient httpClient;
@@ -38,7 +32,7 @@ public abstract class AbstractSaleRequest<T> {
 		this.environment = environment;
 	}
 
-	public abstract Sale execute(T param) throws IOException, CieloRequestException;
+	public abstract Response execute(Request param) throws IOException, CieloRequestException;
 
 	public void setHttpClient(HttpClient httpClient) {
 		this.httpClient = httpClient;
@@ -80,7 +74,8 @@ public abstract class AbstractSaleRequest<T> {
 	 *             yeah, deal with it
 	 * @throws CieloRequestException
 	 */
-	Sale readResponse(HttpResponse response) throws IOException, CieloRequestException {
+	Response readResponse(HttpResponse response, Class<Response> responseClassOf)
+			throws IOException, CieloRequestException {
 		HttpEntity responseEntity = response.getEntity();
 		InputStream responseEntityContent = responseEntity.getContent();
 
@@ -98,7 +93,7 @@ public abstract class AbstractSaleRequest<T> {
 			responseBuilder.append(line);
 		}
 
-		return parseResponse(response.getStatusLine().getStatusCode(), responseBuilder.toString());
+		return parseResponse(response.getStatusLine().getStatusCode(), responseBuilder.toString(), responseClassOf);
 	}
 
 	/**
@@ -112,14 +107,17 @@ public abstract class AbstractSaleRequest<T> {
 	 * @return An instance of Sale or null
 	 * @throws CieloRequestException
 	 */
-	private Sale parseResponse(int statusCode, String responseBody) throws CieloRequestException {
-		Sale sale = null;
+	private Response parseResponse(int statusCode, String responseBody, Class<Response> responseClassOf)
+			throws CieloRequestException {
+		Response response = null;
 		Gson gson = new Gson();
+
+		System.out.println(responseBody);
 
 		switch (statusCode) {
 		case 200:
 		case 201:
-			sale = gson.fromJson(responseBody, Sale.class);
+			response = gson.fromJson(responseBody, responseClassOf);
 			break;
 		case 400:
 			CieloRequestException exception = null;
@@ -138,6 +136,6 @@ public abstract class AbstractSaleRequest<T> {
 			System.out.printf("%s: %s", "Cielo", "Unknown status: " + statusCode);
 		}
 
-		return sale;
+		return response;
 	}
 }

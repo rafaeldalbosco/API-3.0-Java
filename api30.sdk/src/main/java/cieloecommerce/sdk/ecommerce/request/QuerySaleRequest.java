@@ -12,7 +12,7 @@ import cieloecommerce.sdk.ecommerce.Sale;
 /**
  * Query a Sale by it's paymentId
  */
-public class QuerySaleRequest extends AbstractSaleRequest<String> {
+public class QuerySaleRequest extends AbstractSaleRequest<String, Sale> {
 	public QuerySaleRequest(Merchant merchant, Environment environment) {
 		super(merchant, environment);
 	}
@@ -24,6 +24,6 @@ public class QuerySaleRequest extends AbstractSaleRequest<String> {
 		HttpGet request = new HttpGet(url);
 		HttpResponse response = sendRequest(request);
 
-		return readResponse(response);
+		return readResponse(response, Sale.class);
 	}
 }

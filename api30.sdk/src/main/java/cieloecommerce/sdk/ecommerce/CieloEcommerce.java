@@ -6,6 +6,7 @@ import org.apache.http.client.HttpClient;
 
 import cieloecommerce.sdk.Merchant;
 import cieloecommerce.sdk.ecommerce.request.CieloRequestException;
+import cieloecommerce.sdk.ecommerce.request.CreateCartTokenRequest;
 import cieloecommerce.sdk.ecommerce.request.CreateSaleRequest;
 import cieloecommerce.sdk.ecommerce.request.QuerySaleRequest;
 import cieloecommerce.sdk.ecommerce.request.UpdateSaleRequest;
@@ -69,6 +70,29 @@ public class CieloEcommerce {
 		sale = createSaleRequest.execute(sale);
 
 		return sale;
+	}
+
+	/**
+	 * Create a card token to be stored on store
+	 * 
+	 * @param cardToken
+	 *            The credit card data
+	 * @return The card token
+	 * @throws IOException
+	 * @throws CieloRequestException
+	 *             if anything gets wrong.
+	 * @see <a href=
+	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+	 *      Codes</a>
+	 */
+	public CardToken createCardToken(CardToken cardToken) throws IOException, CieloRequestException {
+		CreateCartTokenRequest createCartTokenRequest = new CreateCartTokenRequest(merchant, environment);
+
+		createCartTokenRequest.setHttpClient(httpClient);
+
+		cardToken = createCartTokenRequest.execute(cardToken);
+
+		return cardToken;
 	}
 
 	/**

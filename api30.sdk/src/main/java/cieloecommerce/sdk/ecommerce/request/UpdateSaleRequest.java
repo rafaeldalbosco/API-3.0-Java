@@ -14,7 +14,7 @@ import cieloecommerce.sdk.ecommerce.Sale;
 /**
  * Capture or cancel a Sale
  */
-public class UpdateSaleRequest extends AbstractSaleRequest<String> {
+public class UpdateSaleRequest extends AbstractSaleRequest<String, Sale> {
 	private final String type;
 	private Integer amount;
 	private Integer serviceTaxAmount;
@@ -46,7 +46,7 @@ public class UpdateSaleRequest extends AbstractSaleRequest<String> {
 
 			HttpResponse response = sendRequest(request);
 
-			sale = readResponse(response);
+			sale = readResponse(response, Sale.class);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}

@@ -13,6 +13,7 @@ SDK API-3.0 Java
 * [x] Pagamentos por transferência eletrônica.
 * [x] Cancelamento de autorização.
 * [x] Consulta de pagamentos.
+* [x] Geração de token para o cartão para armazenamento seguro
  
 ## Limitações
 
@@ -58,22 +59,42 @@ try {
 
     // E também podemos fazer seu cancelamento, se for o caso
     sale = new CieloEcommerce(merchant, Environment.SANDBOX).cancelSale(paymentId, 15700);
-} catch (ExecutionException | InterruptedException e) {
-    // Como se trata de uma AsyncTask, será preciso tratar ExecutionException e InterruptedException
-    e.printStackTrace();
 } catch (CieloRequestException e) {
     // Em caso de erros de integração, podemos tratar o erro aqui.
     // os códigos de erro estão todos disponíveis no manual de integração.
     CieloError error = e.getError();
-
-    Log.v("Cielo", error.getCode().toString());
-    Log.v("Cielo", error.getMessage());
-
-    if (error.getCode() != 404) {
-        Log.e("Cielo", null, e);
-    }
+} catch (IOException e) {
+	e.printStackTrace();
 }
 // ...
+```
+
+### Criando um card token para armazenamento seguro do cartão
+
+```java
+// Configure seu merchant
+Merchant merchant = new Merchant("MERCHANT ID", "MERCHANT KEY");
+
+// Informe os dados do cartão que irá tokenizar
+CardToken cardToken = new CardToken().setBrand("Visa")
+                                     .setCardNumber("4532117080573700")
+                                     .setHolder("Comprador T Cielo")
+                                     .setExpirationDate("12/2018");
+
+// Crie o Token para o cartão
+try {
+	// // Configure o SDK com seu merchant e o ambiente apropriado para
+	// gerar o token
+	cardToken = new CieloEcommerce(merchant, Environment.SANDBOX).createCardToken(cardToken);
+	
+	String generatedToken = cardToken.getCardToken();
+
+	System.out.printf("CardToken: %s\n", generatedToken);
+} catch (CieloRequestException e) {
+	e.printStackTrace();
+} catch (IOException e) {
+	e.printStackTrace();
+}
 ```
 
 ## Manual
