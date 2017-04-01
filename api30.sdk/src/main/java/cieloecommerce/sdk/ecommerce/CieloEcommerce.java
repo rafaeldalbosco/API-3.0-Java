@@ -1,15 +1,10 @@
 package cieloecommerce.sdk.ecommerce;
 
-import java.io.IOException;
-
+import cieloecommerce.sdk.Merchant;
+import cieloecommerce.sdk.ecommerce.request.*;
 import org.apache.http.client.HttpClient;
 
-import cieloecommerce.sdk.Merchant;
-import cieloecommerce.sdk.ecommerce.request.CieloRequestException;
-import cieloecommerce.sdk.ecommerce.request.CreateCartTokenRequest;
-import cieloecommerce.sdk.ecommerce.request.CreateSaleRequest;
-import cieloecommerce.sdk.ecommerce.request.QuerySaleRequest;
-import cieloecommerce.sdk.ecommerce.request.UpdateSaleRequest;
+import java.io.IOException;
 
 /**
  * The Cielo Ecommerce SDK front-end;
@@ -133,13 +128,13 @@ public class CieloEcommerce {
 	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
 	 *      Codes</a>
 	 */
-	public Sale cancelSale(String paymentId, Integer amount) throws IOException, CieloRequestException {
+	public SaleResponse cancelSale(String paymentId, Integer amount) throws IOException, CieloRequestException {
 		UpdateSaleRequest updateSaleRequest = new UpdateSaleRequest("void", merchant, environment);
 
 		updateSaleRequest.setHttpClient(httpClient);
 		updateSaleRequest.setAmount(amount);
 
-		Sale sale = updateSaleRequest.execute(paymentId);
+		SaleResponse sale = updateSaleRequest.execute(paymentId);
 
 		return sale;
 	}
@@ -157,7 +152,7 @@ public class CieloEcommerce {
 	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
 	 *      Codes</a>
 	 */
-	public Sale cancelSale(String paymentId) throws IOException, CieloRequestException {
+	public SaleResponse cancelSale(String paymentId) throws IOException, CieloRequestException {
 		return cancelSale(paymentId, null);
 	}
 
@@ -180,7 +175,7 @@ public class CieloEcommerce {
 	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
 	 *      Codes</a>
 	 */
-	public Sale captureSale(String paymentId, Integer amount, Integer serviceTaxAmount)
+	public SaleResponse captureSale(String paymentId, Integer amount, Integer serviceTaxAmount)
 			throws IOException, CieloRequestException {
 		UpdateSaleRequest updateSaleRequest = new UpdateSaleRequest("capture", merchant, environment);
 
@@ -188,7 +183,7 @@ public class CieloEcommerce {
 		updateSaleRequest.setAmount(amount);
 		updateSaleRequest.setServiceTaxAmount(serviceTaxAmount);
 
-		Sale sale = updateSaleRequest.execute(paymentId);
+		SaleResponse sale = updateSaleRequest.execute(paymentId);
 
 		return sale;
 	}
@@ -208,7 +203,7 @@ public class CieloEcommerce {
 	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
 	 *      Codes</a>
 	 */
-	public Sale captureSale(String paymentId, Integer amount) throws IOException, CieloRequestException {
+	public SaleResponse captureSale(String paymentId, Integer amount) throws IOException, CieloRequestException {
 		return captureSale(paymentId, amount, null);
 	}
 
@@ -225,7 +220,7 @@ public class CieloEcommerce {
 	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
 	 *      Codes</a>
 	 */
-	public Sale captureSale(String paymentId) throws IOException, CieloRequestException {
+	public SaleResponse captureSale(String paymentId) throws IOException, CieloRequestException {
 		return captureSale(paymentId, null, null);
 	}
 }
