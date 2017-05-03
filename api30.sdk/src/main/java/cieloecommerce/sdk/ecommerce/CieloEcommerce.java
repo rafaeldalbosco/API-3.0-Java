@@ -1,4 +1,4 @@
-package cieloecommerce.sdk.ecommerce;
+ package cieloecommerce.sdk.ecommerce;
 
 import cieloecommerce.sdk.Merchant;
 import cieloecommerce.sdk.ecommerce.request.*;
@@ -111,6 +111,50 @@ public class CieloEcommerce {
 		Sale sale = querySaleRequest.execute(paymentId);
 
 		return sale;
+	}
+
+	/**
+	 * Query a RecurrentSale on Cielo by recurrentPaymentId
+	 *
+	 * @param recurrentPaymentId
+	 *            The paymentId to be queried
+	 * @return The Sale with authorization, tid, etc. returned by Cielo.
+	 * @throws IOException
+	 * @throws CieloRequestException
+	 *             if anything gets wrong.
+	 * @see <a href=
+	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+	 *      Codes</a>
+	 */
+	public RecurrentSale queryRecurrentSale(String recurrentPaymentId) throws IOException, CieloRequestException {
+		QueryRecurrentSaleRequest queryRecurrentSaleRequest = new QueryRecurrentSaleRequest(merchant, environment);
+
+		queryRecurrentSaleRequest.setHttpClient(httpClient);
+
+		RecurrentSale recurrentSale = queryRecurrentSaleRequest.execute(recurrentPaymentId);
+
+		return recurrentSale;
+	}
+
+	/**
+	 * Deactivate a RecurrentSale on Cielo by recurrentPaymentId
+	 *
+	 * @param recurrentPaymentId
+	 *            The paymentId to be deactivated
+	 * @return The Sale with authorization, tid, etc. returned by Cielo.
+	 * @throws IOException
+	 * @throws CieloRequestException
+	 *             if anything gets wrong.
+	 * @see <a href=
+	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+	 *      Codes</a>
+	 */
+	public void deactivateRecurrentSale(String recurrentPaymentId) throws IOException, CieloRequestException {
+		DeactivateRecurrentSaleRequest deactivateRecurrentSaleRequest = new DeactivateRecurrentSaleRequest(merchant, environment);
+
+		deactivateRecurrentSaleRequest.setHttpClient(httpClient);
+
+		deactivateRecurrentSaleRequest.execute(recurrentPaymentId);
 	}
 
 	/**
