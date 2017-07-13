@@ -81,6 +81,8 @@ public class Payment {
 	private String identification;
 	@SerializedName("Instructions")
 	private String instructions;
+	@SerializedName("AuthenticationUrl")
+	private String authenticationUrl;
 	
 
 	public Payment(Integer amount, Integer installments) {
@@ -128,6 +130,10 @@ public class Payment {
 
 	public String getAuthorizationCode() {
 		return authorizationCode;
+	}
+
+	public String getAuthenticationUrl() {
+		return authenticationUrl;
 	}
 
 	public Payment setAuthorizationCode(String authorizationCode) {
