@@ -69,6 +69,17 @@ public class Payment {
 	private String digitableLine;
 	@SerializedName("Address")
 	private String address;
+	@SerializedName("BoletoNumber")
+	private String boletoNumber;
+	@SerializedName("Assignor")
+	private String assignor;
+	@SerializedName("Demonstrative")
+	private String demonstrative;
+	@SerializedName("Identification")
+	private String identification;
+	@SerializedName("Instructions")
+	private String instructions;
+	
 
 	public Payment(Integer amount, Integer installments) {
 		setAmount(amount);
@@ -330,6 +341,42 @@ public class Payment {
 
 	public Payment setCapture(boolean capture) {
 		this.capture = capture;
+		return this;
+	}
+
+	public String getBoletoNumber() {
+		return boletoNumber;
+	}
+
+	public Payment setBoletoNumber(String boletoNumber) {
+		this.boletoNumber = boletoNumber;
+		return this;
+	}
+
+	public String getDemonstrative() {
+		return demonstrative;
+	}
+
+	public Payment setDemonstrative(String demonstrative) {
+		this.demonstrative = demonstrative;
+		return this;
+	}
+
+	public String getIdentification() {
+		return identification;
+	}
+
+	public Payment setIdentification(String identification) {
+		this.identification = identification;
+		return this;
+	}
+
+	public String getInstructions() {
+		return instructions;
+	}
+
+	public Payment setInstructions(String instructions) {
+		this.instructions = instructions;
 		return this;
 	}
 
