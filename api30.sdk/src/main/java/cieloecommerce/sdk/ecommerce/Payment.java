@@ -19,6 +19,8 @@ public class Payment {
 	private RecurrentPayment recurrentPayment;
 	@SerializedName("CreditCard")
 	private CreditCard creditCard;
+	@SerializedName("DebitCard")
+	private DebitCard debitCard;
 	@SerializedName("Tid")
 	private String tid;
 	@SerializedName("ProofOfSale")
@@ -96,6 +98,14 @@ public class Payment {
 
 		return getCreditCard();
 	}
+	
+	public DebitCard debitCard(String securityCode, String brand) {
+		setType(Type.DebitCard);
+		setDebitCard(new DebitCard(securityCode, brand));
+
+		return getDebitCard();
+	}
+	
 
 	public RecurrentPayment recurrentPayment(boolean authorizeNow) {
 		setRecurrentPayment(new RecurrentPayment(authorizeNow));
@@ -165,6 +175,15 @@ public class Payment {
 		return this;
 	}
 
+	public Payment setDebitCard(DebitCard debitCard) {
+		this.debitCard = debitCard;
+		return this;
+	}
+	
+	public DebitCard getDebitCard() {
+		return debitCard;
+	}
+	
 	public Currency getCurrency() {
 		return currency;
 	}
