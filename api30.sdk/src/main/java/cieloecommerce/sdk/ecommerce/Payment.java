@@ -19,6 +19,8 @@ public class Payment {
 	private RecurrentPayment recurrentPayment;
 	@SerializedName("CreditCard")
 	private CreditCard creditCard;
+	@SerializedName("DebitCard")
+	private DebitCard debitCard;
 	@SerializedName("Tid")
 	private String tid;
 	@SerializedName("ProofOfSale")
@@ -69,6 +71,19 @@ public class Payment {
 	private String digitableLine;
 	@SerializedName("Address")
 	private String address;
+	@SerializedName("BoletoNumber")
+	private String boletoNumber;
+	@SerializedName("Assignor")
+	private String assignor;
+	@SerializedName("Demonstrative")
+	private String demonstrative;
+	@SerializedName("Identification")
+	private String identification;
+	@SerializedName("Instructions")
+	private String instructions;
+	@SerializedName("AuthenticationUrl")
+	private String authenticationUrl;
+	
 
 	public Payment(Integer amount, Integer installments) {
 		setAmount(amount);
@@ -85,6 +100,14 @@ public class Payment {
 
 		return getCreditCard();
 	}
+	
+	public DebitCard debitCard(String securityCode, String brand) {
+		setType(Type.DebitCard);
+		setDebitCard(new DebitCard(securityCode, brand));
+
+		return getDebitCard();
+	}
+	
 
 	public RecurrentPayment recurrentPayment(boolean authorizeNow) {
 		setRecurrentPayment(new RecurrentPayment(authorizeNow));
@@ -107,6 +130,10 @@ public class Payment {
 
 	public String getAuthorizationCode() {
 		return authorizationCode;
+	}
+
+	public String getAuthenticationUrl() {
+		return authenticationUrl;
 	}
 
 	public Payment setAuthorizationCode(String authorizationCode) {
@@ -154,6 +181,15 @@ public class Payment {
 		return this;
 	}
 
+	public Payment setDebitCard(DebitCard debitCard) {
+		this.debitCard = debitCard;
+		return this;
+	}
+	
+	public DebitCard getDebitCard() {
+		return debitCard;
+	}
+	
 	public Currency getCurrency() {
 		return currency;
 	}
@@ -330,6 +366,42 @@ public class Payment {
 
 	public Payment setCapture(boolean capture) {
 		this.capture = capture;
+		return this;
+	}
+
+	public String getBoletoNumber() {
+		return boletoNumber;
+	}
+
+	public Payment setBoletoNumber(String boletoNumber) {
+		this.boletoNumber = boletoNumber;
+		return this;
+	}
+
+	public String getDemonstrative() {
+		return demonstrative;
+	}
+
+	public Payment setDemonstrative(String demonstrative) {
+		this.demonstrative = demonstrative;
+		return this;
+	}
+
+	public String getIdentification() {
+		return identification;
+	}
+
+	public Payment setIdentification(String identification) {
+		this.identification = identification;
+		return this;
+	}
+
+	public String getInstructions() {
+		return instructions;
+	}
+
+	public Payment setInstructions(String instructions) {
+		this.instructions = instructions;
 		return this;
 	}
 
