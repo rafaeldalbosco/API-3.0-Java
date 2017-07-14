@@ -1,13 +1,13 @@
 package cieloecommerce.sdk.ecommerce.request;
 
-import cieloecommerce.sdk.Environment;
-import cieloecommerce.sdk.Merchant;
-import cieloecommerce.sdk.ecommerce.RecurrentSale;
-import cieloecommerce.sdk.ecommerce.Sale;
+import java.io.IOException;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
-import java.io.IOException;
+import cieloecommerce.sdk.Environment;
+import cieloecommerce.sdk.Merchant;
+import cieloecommerce.sdk.ecommerce.RecurrentSale;
 
 public class QueryRecurrentSaleRequest extends AbstractSaleRequest<String, RecurrentSale> {
     public QueryRecurrentSaleRequest(Merchant merchant, Environment environment) {
