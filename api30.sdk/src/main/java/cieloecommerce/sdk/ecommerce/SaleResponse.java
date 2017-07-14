@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class SaleResponse {
 
+	@SerializedName("MerchantOrderId")
+	private String merchantOrderId;
+	
     @SerializedName("Status")
     private String status;
 
@@ -28,6 +31,9 @@ public class SaleResponse {
     @SerializedName("ReturnMessage")
     private String returnMessage;
 
+    @SerializedName("AuthenticationUrl")
+    private String authenticationUrl;
+    
     @SerializedName("Links")
     private Links[] links;
 
@@ -49,7 +55,15 @@ public class SaleResponse {
         return status;
     }
 
-    public void setStatus(String status) {
+    public String getMerchantOrderId() {
+		return merchantOrderId;
+	}
+
+	public void setMerchantOrderId(String merchantOrderId) {
+		this.merchantOrderId = merchantOrderId;
+	}
+
+	public void setStatus(String status) {
         this.status = status;
     }
 
@@ -101,7 +115,15 @@ public class SaleResponse {
         this.returnMessage = returnMessage;
     }
 
-    public Links[] getLinks() {
+    public String getAuthenticationUrl() {
+		return authenticationUrl;
+	}
+
+	public void setAuthenticationUrl(String authenticationUrl) {
+		this.authenticationUrl = authenticationUrl;
+	}
+
+	public Links[] getLinks() {
         return links;
     }
 

@@ -112,6 +112,31 @@ public class CieloEcommerce {
 
 		return sale;
 	}
+	
+	/**
+	 * Query a Sale on Cielo by paymentId
+	 *
+	 * @param paymentId
+	 *            The paymentId to be queried
+	 * @return The Sale with authorization, tid, etc. returned by Cielo.
+	 * @throws IOException
+	 * @throws CieloRequestException
+	 *             if anything gets wrong.
+	 * @see <a href=
+	 *      "https://developercielo.github.io/Webservice-3.0/english.html#error-codes">Error
+	 *      Codes</a>
+	 */
+	public QueryMerchantOrderResponse queryMerchantOrder(String merchantOrderId) throws IOException, CieloRequestException {
+		QueryMerchantOrderRequest querySaleRequest = new QueryMerchantOrderRequest(merchant, environment);
+
+		querySaleRequest.setHttpClient(httpClient);
+
+		QueryMerchantOrderResponse merchantOrder = querySaleRequest.execute(merchantOrderId);
+
+		return merchantOrder;
+	}
+
+	
 
 	/**
 	 * Query a RecurrentSale on Cielo by recurrentPaymentId
