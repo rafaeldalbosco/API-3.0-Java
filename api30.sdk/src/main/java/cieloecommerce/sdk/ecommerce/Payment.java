@@ -39,7 +39,7 @@ public class Payment {
 	private Type type;
 	@SerializedName("Amount")
 	private Integer amount;
-	@SerializedName("ReceiveDate")
+	@SerializedName("ReceivedDate")
 	private String receivedDate;
 	@SerializedName("CapturedAmount")
 	private Integer capturedAmount;
